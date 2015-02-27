@@ -432,7 +432,15 @@ public class CannonView extends SurfaceView
                // display number of shots fired and total time elapsed
                builder.setMessage(getResources().getString(
                   R.string.results_format, shotsFired, totalElapsedTime));
-               builder.setPositiveButton(R.string.reset_game,
+               String tmp;
+               if(messageId==R.string.lose){
+            	   tmp="Try again";
+               }
+               else{
+            	   tmp=getResources().getString(
+                           R.string.reset_game,TARGET_PIECES+1);
+               }
+               builder.setPositiveButton(tmp,
                   new DialogInterface.OnClickListener()
                   {
                      // called when "Reset Game" Button is pressed
@@ -440,6 +448,7 @@ public class CannonView extends SurfaceView
                      public void onClick(DialogInterface dialog, int which)
                      {
                         dialogIsDisplayed = false;
+                        if(messageId==R.string.win)
                         level++;
                         if(level==9)
                         	level=1;
@@ -593,15 +602,4 @@ public class CannonView extends SurfaceView
    } // end nested class CannonThread
 } // end class CannonView
 
-/*********************************************************************************
- * (C) Copyright 1992-2014 by Deitel & Associates, Inc. and * Pearson Education, *
- * Inc. All Rights Reserved. * * DISCLAIMER: The authors and publisher of this   *
- * book have used their * best efforts in preparing the book. These efforts      *
- * include the * development, research, and testing of the theories and programs *
- * * to determine their effectiveness. The authors and publisher make * no       *
- * warranty of any kind, expressed or implied, with regard to these * programs   *
- * or to the documentation contained in these books. The authors * and publisher *
- * shall not be liable in any event for incidental or * consequential damages in *
- * connection with, or arising out of, the * furnishing, performance, or use of  *
- * these programs.                                                               *
- *********************************************************************************/
+
