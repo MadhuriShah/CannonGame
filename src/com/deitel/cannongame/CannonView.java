@@ -188,8 +188,8 @@ public class CannonView extends SurfaceView
          hitStates[i] = false;
 
       targetPiecesHit = 0; // no target pieces have been hit
-      blockerVelocity = initialBlockerVelocity; // set initial velocity
-      targetVelocity = initialTargetVelocity; // set initial velocity
+      blockerVelocity = initialBlockerVelocity*(TARGET_PIECES *0.4F); // set initial velocity
+      targetVelocity = initialTargetVelocity*(TARGET_PIECES *0.4F); // set initial velocity
       timeLeft = 10; // start the countdown at 10 seconds
       cannonballOnScreen = false; // the cannonball is not on the screen
       shotsFired = 0; // set the initial number of shots fired
