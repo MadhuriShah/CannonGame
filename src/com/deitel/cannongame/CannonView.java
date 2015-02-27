@@ -32,10 +32,10 @@ public class CannonView extends SurfaceView
    private boolean dialogIsDisplayed = false;   
                
    // constants for game play
-   public static final int TARGET_PIECES = 7; // sections in the target
+   public static  int TARGET_PIECES = 7; // sections in the target
    public static final int MISS_PENALTY = 2; // seconds deducted on a miss
    public static final int HIT_REWARD = 3; // seconds added on a hit
-
+   public int level=1;
    // variables for the game loop and tracking statistics
    private boolean gameOver; // is the game over?
    private double timeLeft; // time remaining in seconds
@@ -105,8 +105,7 @@ public class CannonView extends SurfaceView
       cannonball = new Point(); // create the cannonball as a Point
 
       // initialize hitStates as a boolean array
-      hitStates = new boolean[TARGET_PIECES];
-
+     
       // initialize SoundPool to play the app's three sound effects
       soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 
@@ -158,7 +157,7 @@ public class CannonView extends SurfaceView
       targetDistance = w * 7 / 8; // target 7/8 screen width from left
       targetBeginning = h / 8; // distance from top 1/8 screen height
       targetEnd = h * 7 / 8; // distance from top 7/8 screen height
-      pieceLength = (targetEnd - targetBeginning) / TARGET_PIECES;
+     
       initialTargetVelocity = -h / 4; // initial target speed multiplier
       target.start = new Point(targetDistance, targetBeginning);
       target.end = new Point(targetDistance, targetEnd);
@@ -173,13 +172,16 @@ public class CannonView extends SurfaceView
       blockerPaint.setStrokeWidth(lineWidth); // set line thickness      
       targetPaint.setStrokeWidth(lineWidth); // set line thickness       
       backgroundPaint.setColor(Color.WHITE); // set background color
-
+      //for(int i=1;i<=9;i++)
       newGame(); // set up and start a new game
    } // end method onSizeChanged
 
    // reset all the screen elements and start a new game
    public void newGame()
    {
+	   TARGET_PIECES=level;
+	   hitStates = new boolean[TARGET_PIECES];
+	   pieceLength = (targetEnd - targetBeginning) / TARGET_PIECES;
       // set every element of hitStates to false--restores target pieces
       for (int i = 0; i < TARGET_PIECES; i++)
          hitStates[i] = false;
@@ -398,9 +400,9 @@ public class CannonView extends SurfaceView
          {
             // alternate coloring the pieces 
             if (i % 2 != 0)
-               targetPaint.setColor(Color.BLUE);
+               targetPaint.setColor(Color.RED);
             else
-               targetPaint.setColor(Color.YELLOW);
+               targetPaint.setColor(Color.GREEN);
             
             canvas.drawLine(currentPoint.x, currentPoint.y, target.end.x,
                (int) (currentPoint.y + pieceLength), targetPaint);
@@ -438,6 +440,9 @@ public class CannonView extends SurfaceView
                      public void onClick(DialogInterface dialog, int which)
                      {
                         dialogIsDisplayed = false;
+                        level++;
+                        if(level==9)
+                        	level=1;
                         newGame(); // set up and start a new game
                      } 
                   } // end anonymous inner class
