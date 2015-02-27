@@ -36,6 +36,7 @@ public class CannonView extends SurfaceView
    public static final int MISS_PENALTY = 2; // seconds deducted on a miss
    public static final int HIT_REWARD = 3; // seconds added on a hit
    public int level=1;
+   public int score=0;
    // variables for the game loop and tracking statistics
    private boolean gameOver; // is the game over?
    private double timeLeft; // time remaining in seconds
@@ -227,7 +228,7 @@ public class CannonView extends SurfaceView
          {
             cannonballVelocityX *= -1; // reverse cannonball's direction
             timeLeft -= MISS_PENALTY; // penalize the user
-
+            score -=15;
             // play blocker sound
             soundPool.play(soundMap.get(BLOCKER_SOUND_ID), 1, 1, 1, 0, 1f);
          }
@@ -260,7 +261,7 @@ public class CannonView extends SurfaceView
                hitStates[section] = true; // section was hit
                cannonballOnScreen = false; // remove cannonball
                timeLeft += HIT_REWARD; // add reward to remaining time
-
+               score+=10;
                // play target hit sound
                soundPool.play(soundMap.get(TARGET_SOUND_ID), 1,
                   1, 1, 0, 1f);
@@ -368,6 +369,8 @@ public class CannonView extends SurfaceView
       // display time remaining
       canvas.drawText(getResources().getString(
          R.string.time_remaining_format, timeLeft), 30, 50, textPaint);
+      canvas.drawText(getResources().getString(
+    	         R.string.score, score), 30, 80, textPaint);
 
       // if a cannonball is currently on the screen, draw it
       if (cannonballOnScreen)

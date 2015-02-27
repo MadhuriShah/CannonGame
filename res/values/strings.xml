@@ -7,5 +7,6 @@
     <string name="win">You win!</string>
     <string name="lose">You lose!</string>
     <string name="time_remaining_format">Time remaining: %.1f seconds</string>
-   
+     <string name="score">Score: %1$d</string>
+
 </resources>
